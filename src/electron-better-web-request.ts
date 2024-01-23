@@ -239,15 +239,17 @@ export class BetterWebRequest implements IBetterWebRequest {
     });
   }
 
-  private mergeFilters(listeners: IListenerCollection) {
+  private mergeFilters(listeners: IListenerCollection): Set<string> {
     const arrayListeners = Array.from(listeners.values());
 
     return arrayListeners.reduce(
       (accumulator, value) => {
-        for (const url of value.urls) accumulator.add(url);
+        for (const url of value.urls) {
+          accumulator.add(url);
+        }
         return accumulator;
       },
-      new Set()
+      new Set<string>()
     );
   }
 
